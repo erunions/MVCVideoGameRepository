@@ -1,0 +1,36 @@
+﻿@model HashSet<VideoGame>
+
+@{
+    ViewData["Title"] = "Games";
+}
+
+<div class="text-center">
+    @if(Model.Count > 1)
+    {
+        <h1 class="display-4">Games</h1>
+        <p>Click on a game to view information about it.</p>
+        @foreach (VideoGame game in Model)
+        {
+            <a href="Games/@game.Title">@game.Title</a><br />
+        }
+    } 
+    else 
+    {
+        VideoGame game = Model.First();
+        <h1 class="display-4">@game.Title</h1>
+        <div>
+            <p>Category: @game.Category</p>
+            <p>Year: @game.Year</p>
+            <p>Player Count: @game.PlayerCount</p>
+            <p>Price: $@game.Price</p>
+            <p>Studio: @game.Studio.Name</p>
+            <p>Publisher: @game.Publisher.Name</p>
+            <p>Consoles: 
+                @foreach(VideoGameConsole console in game.Consoles.ToList()) {
+                    <b>@console.Name</b>
+                }
+            </p>
+            <p>Age Rating: @game.AgeRating</p>
+        </div>
+    }
+</div>
